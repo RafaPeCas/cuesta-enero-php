@@ -1,0 +1,53 @@
+#galletaClicks{
+    width: 300px;
+    z-index: 200;
+}
+
+body{
+    background-color: rgb(133, 133, 242);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.contenedorGalleta{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.sombra{
+    width: 120px;
+    height: 120px;
+    position: absolute;
+    z-index: 0;
+    border-radius: 100%;
+    box-shadow: 0px 0px 100px 100px black;
+    animation: colores 2s linear infinite;
+} 
+
+@keyframes colores{
+    0%, 100%{
+        z-index: 0;
+        box-shadow: 0px 0px 200px 150px rgb(36, 36, 36);
+    }
+    50%{
+        z-index: 0;
+        box-shadow: 0px 0px 200px 150px blue;
+    }
+}
+
+.animacion-galleta {
+    transition: transform 0.1s linear;
+}
+
+.escalar {
+    transform: scale(0.8);
+}
+
+.s{
+    z-index: 200;
+}
