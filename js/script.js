@@ -5,7 +5,7 @@ let suma = parseInt(cpc.innerHTML);
 let galletoriers = parseInt(auto.innerHTML);
 
 function animacion() {
-    galletear()
+    galletear(1)
     let galleta = document.getElementById('galletaClicks');
     galleta.classList.add('escalar');
     setTimeout(function () {
@@ -24,13 +24,14 @@ if (document.querySelector("#error") != null) {
 
 function empezar() {
     document.querySelector('main').removeAttribute('hidden')
+    document.querySelector("header").classList.remove("blubla");
     if (document.querySelector('.insertarNombre') != null) {
         document.querySelector('.insertarNombre').setAttribute('hidden', "")
     }
 }
 
-function galletear() {
-    cantidadGalletorias += suma
+function galletear(multiplicador) {
+    cantidadGalletorias += suma * multiplicador;
     actualizarVistaGalletoria()
 }
 
@@ -40,8 +41,8 @@ function actualizarVistaGalletoria() {
 
 function guardarCantidadJs() {
     document.getElementById("guardarCantidad").value = cantidadGalletorias;
-    cpcGuardar.value=suma;
-    galletoriersGuardar.value=galletoriers;
+    cpcGuardar.value = suma;
+    galletoriersGuardar.value = galletoriers;
     document.getElementById("formularioGalletas").submit();
 }
 
@@ -71,16 +72,21 @@ function autoclicker(cantidad, precio, boton) {
             boton.classList.remove("nonono");
         }, 300);
     } else {
+        if (galletoriers <= 0) {
+            ejecutarGalletear();
+        }
         cantidadGalletorias -= precio;
         actualizarVistaGalletoria();
         galletoriers += cantidad;
         actualizarVistaAuto();
+
+
     }
 }
 
 function ejecutarGalletear() {
     setInterval(function () {
-        galletear();
+        galletear(galletoriers);
     }, 1000);
 }
 

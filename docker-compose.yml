@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  mysql:
+    networks:
+      - default
+    image: mysql:8.0
+    build:
+      context: .
+      dockerfile: sql.Dockerfile
+    container_name: mysql-container
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "YES"
+      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_DATABASE: galletoria
+    ports:
+      - "3307:3306"
+
+  php:
+    networks:
+      - default
+    build:
+      context: .
+      dockerfile: php.Dockerfile
+    container_name: php-container
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql

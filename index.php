@@ -14,27 +14,27 @@ $cantidadGalletas = 0;
 </head>
 
 <body>
-    <header class="s">
+    <header class="blubla">
         <h1>Galletoria</h1>
         <?php
+        $cantidadGalletas = 0;
+        $galletoriers = 0;
+        $cpc = 1;
         if (!isset($_GET["user"])) {
             echo '<form class="insertarNombre" action="index.php" method="get">
                     <label for="user">Nombre de Usuario:</label>
                     <input type="text" id="user" name="user" required>
                     <input type="submit" value="Enviar" onclick="empezar()">
                 </form>';
-            $cantidadGalletas = 0;
-            $galletoriers = 0;
-            $cpc = 1;
         } else {
             echo "<div hidden>";
             try {
-                $servername = "localhost";
+                $servername = "localhost";//cambiar a mysql
                 $username = "root";
                 $password = "";
                 $database = "galletoria";
-
-                $conn = new mysqli($servername, $username, $password, $database);
+            
+                $conn = new mysqli($servername, $username, $password, $database);//añadir 3306 al final
 
                 if ($conn->connect_error) {
                     throw new Exception("Conexión fallida: " . $conn->connect_error);
@@ -78,37 +78,36 @@ $cantidadGalletas = 0;
                     <img id='galletaClicks' class='animacion-galleta' onclick='animacion()' src='images/galleta2.png'>
                 </div>
                 <h2 class="s cantidadGalletas">Cantidad de galletorias: <span id="cantidubi"><?php echo $cantidadGalletas ?></span></h2>
-                <p>Galletorias por click: <span id="cpc"><?php echo $cpc ?></span></p>
-                <p>Autogalletoriers: <span id="auto"><?php echo $galletoriers ?></span></p>
+                <p class="s">Galletorias por click: <span id="cpc"><?php echo $cpc ?></span></p>
+                <p class="s">Autogalletoriers: <span id="auto"><?php echo $galletoriers ?></span></p>
+            </section>
+            <section class="mejoras s">
+                <div class="contenedorTabla">
+                    <table>
+                        <tr>
+                            <th>50 G</th>
+                            <th>1500 G</th>
+                            <th>5000 G</th>
+                        </tr>
+                        <tr>
+                            <td><button onclick="actualizarCpc(1, 50, this)">+1 CPC</button></td>
+                            <td><button onclick="actualizarCpc(5, 1500, this)">+5 CPC</button></td>
+                            <td><button onclick="autoclicker(1, 5000, this)">+1 Auto</button></td>
+                        </tr>
+                    </table>
+                </div>
                 <div class="guga">
                     <form id="formularioGalletas" action="actualizar_cantidad.php" method="POST">
                         <input hidden type="number" id="guardarCantidad" name="guardarCantidad" required>
                         <input hidden type="number" id="cpcGuardar" name="cpcGuardar" required>
                         <input hidden type="number" id="galletoriersGuardar" name="galletoriersGuardar" required>
                         <input hidden type="text" id="user" name="user" value=<?php echo $nick ?> required>
-                        <input type="button" value="Guardar" onclick="guardarCantidadJs()">
+                        <input class="botonForm" type="button" value="Guardar" onclick="guardarCantidadJs()">
                     </form>
                 </div>
             </section>
-            <section class="mejoras">
-                <table border="1">
-                    <tr>
-                        <th>50 G</th>
-                        <th>1500 G</th>
-                        <th>5000 G</th>
-                    </tr>
-                    <tr>
-                        <td><button onclick="actualizarCpc(1, 50, this)">+1 CPC</button></td>
-                        <td><button onclick="actualizarCpc(5, 1500, this)">+5 CPC</button></td>
-                        <td><button onclick="autoclicker(1, 5000, this)">+1 Auto</button></td>
-                    </tr>
-                </table>
-            </section>
         </article>
     </main>
-    <footer>
-
-    </footer>
 </body>
 
 </html>
