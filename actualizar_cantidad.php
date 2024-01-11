@@ -1,11 +1,11 @@
 <?php
 try {
-    $servername = "localhost";//cambiar a mysql
+    $servername = "mysql"; 
     $username = "root";
     $password = "";
     $database = "galletoria";
 
-    $conn = new mysqli($servername, $username, $password, $database);//añadir 3306 al final
+    $conn = new mysqli($servername, $username, $password, $database, 3306);
 
     if ($conn->connect_error) {
         throw new Exception("Conexión fallida: " . $conn->connect_error);
