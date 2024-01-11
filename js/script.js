@@ -7,12 +7,6 @@ let galletoriersAfk = parseInt(afk.innerHTML*10);
 
 function animacion() {
     galletear(1)
-    let galleta = document.getElementById('galletaClicks');
-    galleta.classList.add('escalar');
-    setTimeout(function () {
-        galleta.classList.remove('escalar');
-    }, 100);
-
 }
 
 if (document.querySelector('.insertarNombre') === null) {
@@ -50,6 +44,7 @@ function guardarCantidadJs() {
 
 function actualizarCpc(cantidad, precio, boton) {
     if (precio > cantidadGalletorias) {
+        infoMsg.innerHTML="No tienes suficientes galletas para comprar "+ cantidad + " galletorias por click por "+precio
         boton.classList.add("nonono")
         setTimeout(function () {
             boton.classList.remove("nonono")
@@ -59,6 +54,11 @@ function actualizarCpc(cantidad, precio, boton) {
         actualizarVistaGalletoria()
         suma += cantidad;
         actualizarVistaCpc()
+        boton.classList.add("sisisi");
+        infoMsg.innerHTML="+"+cantidad + " galletas por click comprados por "+precio
+        setTimeout(function () {
+            boton.classList.remove("sisisi");
+        }, 300);
     }
 
 }
@@ -69,10 +69,12 @@ if (galletoriers > 0) {
 
 function autoclicker(cantidad, precio, boton) {
     if (precio > cantidadGalletorias) {
+        infoMsg.innerHTML="No tienes suficientes galletas para comprar "+ cantidad + " galletoriers por "+precio
         boton.classList.add("nonono");
         setTimeout(function () {
             boton.classList.remove("nonono");
         }, 300);
+        
     } else {
         if (galletoriers <= 0) {
             ejecutarGalletear();
@@ -81,6 +83,11 @@ function autoclicker(cantidad, precio, boton) {
         actualizarVistaGalletoria();
         galletoriers += cantidad;
         actualizarVistaAuto();
+        boton.classList.add("sisisi");
+        infoMsg.innerHTML=cantidad + " galletoriers comprados por "+precio
+        setTimeout(function () {
+            boton.classList.remove("sisisi");
+        }, 300);
     }
 }
 
@@ -92,6 +99,7 @@ function ejecutarGalletear() {
 
 function actualizarAfk(cantidad, precio, boton){
     if (precio > cantidadGalletorias) {
+        infoMsg.innerHTML="No tienes suficientes galletas para comprar "+ cantidad*0.1 + " galletoriers dimensionales "+precio
         boton.classList.add("nonono");
         setTimeout(function () {
             boton.classList.remove("nonono");
@@ -101,6 +109,11 @@ function actualizarAfk(cantidad, precio, boton){
         actualizarVistaGalletoria();
         galletoriersAfk += cantidad;
         actualizarVistaAfk();
+        boton.classList.add("sisisi");
+        infoMsg.innerHTML=cantidad*0.1 + " galletoriers dimensionales comprados por "+precio
+        setTimeout(function () {
+            boton.classList.remove("sisisi");
+        }, 300);
     }
 }
 
@@ -117,3 +130,16 @@ function actualizarVistaAfk(){
     afk.innerHTML = resultado.toFixed(1);
 }
 
+function pulsar(){
+    let galleta = document.getElementById('galletaClicks');
+    galleta.classList.add('diminuto');
+}
+
+function soltar(){
+    let galleta = document.getElementById('galletaClicks');
+    galleta.classList.remove('diminuto');
+    galleta.classList.add('enorme');
+    setTimeout(function () {
+        galleta.classList.remove("enorme");
+    }, 300);
+}
