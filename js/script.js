@@ -3,6 +3,7 @@
 let cantidadGalletorias = parseInt(cantidubi.innerHTML);
 let suma = parseInt(cpc.innerHTML);
 let galletoriers = parseInt(auto.innerHTML);
+let galletoriersAfk = parseInt(afk.innerHTML*10);
 
 function animacion() {
     galletear(1)
@@ -43,6 +44,7 @@ function guardarCantidadJs() {
     document.getElementById("guardarCantidad").value = cantidadGalletorias;
     cpcGuardar.value = suma;
     galletoriersGuardar.value = galletoriers;
+    galletoriersAfkGuardar.value = galletoriersAfk;
     document.getElementById("formularioGalletas").submit();
 }
 
@@ -79,8 +81,6 @@ function autoclicker(cantidad, precio, boton) {
         actualizarVistaGalletoria();
         galletoriers += cantidad;
         actualizarVistaAuto();
-
-
     }
 }
 
@@ -90,11 +90,30 @@ function ejecutarGalletear() {
     }, 1000);
 }
 
+function actualizarAfk(cantidad, precio, boton){
+    if (precio > cantidadGalletorias) {
+        boton.classList.add("nonono");
+        setTimeout(function () {
+            boton.classList.remove("nonono");
+        }, 300);
+    } else {
+        cantidadGalletorias -= precio;
+        actualizarVistaGalletoria();
+        galletoriersAfk += cantidad;
+        actualizarVistaAfk();
+    }
+}
+
 function actualizarVistaCpc() {
     cpc.innerHTML = suma;
 }
 
 function actualizarVistaAuto() {
     auto.innerHTML = galletoriers;
+}
+
+function actualizarVistaAfk(){
+    let resultado = galletoriersAfk*0.1
+    afk.innerHTML = resultado.toFixed(1);
 }
 

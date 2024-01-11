@@ -13,15 +13,20 @@ try {
 
     $nick = isset($_POST["user"]) ? $_POST["user"] : "";
     $nuevaCantidad = isset($_POST["guardarCantidad"]) ? $_POST["guardarCantidad"] : 0;
-    $nuevoCpc = isset($_POST["cpcGuardar"]) ? $_POST["cpcGuardar"] : 1;  
-    $nuevoGalletoriers = isset($_POST["galletoriersGuardar"]) ? $_POST["galletoriersGuardar"] : 0;  
-
+    $nuevoCpc = isset($_POST["cpcGuardar"]) ? $_POST["cpcGuardar"] : 1;
+    $nuevoGalletoriers = isset($_POST["galletoriersGuardar"]) ? $_POST["galletoriersGuardar"] : 0;
+    $fecha = new DateTime();
+    $blubla = $fecha->format('Y-m-d H:i:s');
+    $nuevoGalletoriersAfk = isset($_POST["galletoriersAfkGuardar"]) ? $_POST["galletoriersAfkGuardar"] : 0;
+    
     $sql = "UPDATE usuarios SET 
-                cantidadGalletas = $nuevaCantidad,
-                cpc = $nuevoCpc,
-                galletoriers = $nuevoGalletoriers
-            WHERE nick = '$nick'";
-
+                    cantidadGalletas = $nuevaCantidad,
+                    cpc = $nuevoCpc,
+                    galletoriers = $nuevoGalletoriers,
+                    ultimaCon = '$blubla',
+                    galletoriersAfk = $nuevoGalletoriersAfk
+                WHERE nick = '$nick'";
+    
 
     if ($conn->query($sql) === TRUE) {
         echo "Actualización exitosa para el usuario $nick. Nueva cantidad de galletas: $nuevaCantidad";
