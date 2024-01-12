@@ -29,13 +29,13 @@ try {
     
 
     if ($conn->query($sql) === TRUE) {
-        echo "Actualización exitosa para el usuario $nick. Nueva cantidad de galletas: $nuevaCantidad";
+
     } else {
         throw new Exception("Error al actualizar la cantidad de galletas: " . $conn->error);
     }
-
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
+    exit;
     $conn->close();
 } catch (Exception $e) {
     echo "Error: " . $e->getMessage();
 }
-header("Location: index.php?user=$nick");

@@ -18,7 +18,6 @@ $cantidadGalletas = 0;
     <header class="blubla">
         <h1>Galletoria</h1>
         <?php
-        $nick = "";
         $cantidadGalletas = 0;
         $galletoriers = 0;
         $cpc = 1;
@@ -30,7 +29,7 @@ $cantidadGalletas = 0;
                     <input type="submit" value="Enviar" onclick="empezar()">
                 </form>';
         } else {
-            echo "<div hidden>";
+            echo "<div>";
             try {
                 $servername = "mysql"; 
                 $username = "root";
@@ -58,7 +57,9 @@ $cantidadGalletas = 0;
                         $f = new DateTime();
                         $cantidadGalletas += round((abs($f->getTimestamp() - $lastDate->getTimestamp()) * ($galletoriersAfk * 0.1)));
                     } else {
-                        $insertSql = "INSERT INTO usuarios (nick, cantidadGalletas) VALUES ('$nick', 0)";
+                        $lastDate1 = new DateTime();
+                        $lastDate = $lastDate1->format('Y-m-d H:i:s');
+                        $insertSql = "INSERT INTO usuarios (nick, cantidadGalletas, ultimaCon) VALUES ('$nick', 0, '$lastDate')";
                         if ($conn->query($insertSql) === TRUE) {
                         } else {
                             throw new Exception("Error al crear el nuevo usuario: " . $conn->error);
@@ -68,7 +69,7 @@ $cantidadGalletas = 0;
                     throw new Exception("Error en la consulta: " . $conn->error);
                 }
             } catch (Exception $e) {
-                echo "<p id='error'></p><div>";
+                echo "<p id='error'>$conn->error</p></div>";
             }
         }
         ?>
@@ -90,7 +91,7 @@ $cantidadGalletas = 0;
                 <p class="s">Autogalletoriers: <span id="auto"><?php echo $galletoriers ?></span></p>
                 <p class="s">AutogalletoriersAFK: <span id="afk"><?php echo $galletoriersAfk * 0.1 ?></span></p>
                 <?php
-                if ($nick != "") {
+                if (isset($nick)) {
                     echo '<div class="guga">
 <form id="formularioGalletas" action="actualizar_cantidad.php" method="POST">
     <input hidden type="number" id="guardarCantidad" name="guardarCantidad" required>
