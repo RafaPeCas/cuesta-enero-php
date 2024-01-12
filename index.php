@@ -29,7 +29,7 @@ $cantidadGalletas = 0;
                     <input type="submit" value="Enviar" onclick="empezar()">
                 </form>';
         } else {
-            echo "<div>";
+            echo "<div hidden>";
             try {
                 $servername = "mysql"; 
                 $username = "root";
